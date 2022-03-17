@@ -1,5 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import log from "././libs/logger";
+import "dotenv/config";
+import connect from "./utils/connect";
 const app: Application = express();
 const port: number = 3000;
 
@@ -12,8 +14,9 @@ app.get("/", async (req: Request, res: Response): Promise<Response> => {
 });
 
 try {
-  app.listen(port, (): void => {
+  app.listen(port, async (): Promise<void> => {
     log.info(`Connected successfully on port ${port} 🚀`);
+    await connect();
   });
 } catch (error: any) {
   console.error(`Error occurred: ${error.message}`);
